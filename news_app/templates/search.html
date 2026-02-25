@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<section class="news-block">
+    <div class="container-fluid">
+        <div class="news-block-content">
+            <h3>Поиск новостей</h3>
+            <form action="{% url 'search_results' %}" method="get">
+                <label for="text">Введите заголовок или описание новости</label>
+                <input id="text" name="q" type="text" placeholder="Заголовок или описание" required>
+                <button>Поиск</button>
+            </form>
+        </div>
+        <div class="adv-block-content">
+            <h3>Реклама</h3>
+            <div class="adv-block__info">
+                {% for adv in advs %}
+                <img src="{{ adv.image_url }}" alt="{{ adv.name }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

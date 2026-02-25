@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<section class="news-block">
+    <div class="container-fluid">
+        <div class="news-block-content">
+            <h3>{{ post.title }}</h3>
+            <p class="mb-15">{{ post.created_at|date:"d.m.Y"}}</p>
+            <img src="{{ post.image_url }}" alt="" class="rounded-img">
+            <p class="mb-15 news-content">{{ post.content }}</p>
+            <a href="#">#{{ post.category.name }}</a>
+        </div>
+        <div class="adv-block-content">
+            <h3>Реклама</h3>
+            <div class="adv-block__info">
+                {% for adv in advs %}
+                <img src="{{ adv.image_url }}" alt="{{ adv.name }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% if related_posts %}
+<section class="related-posts">
+    <div class="container-fluid">
+        <h3>Похожие новости</h3>
+        <div class="related-posts__grid">
+            {% for related in related_posts %}
+            <div class="related-post-card">
+                <a href="{% url 'read_news_page' related.pk %}">
+                    <img src="{{ related.image_url }}" alt="{{ related.title }}" class="rounded-img">
+                    <p class="related-post-date">{{ related.created_at|date:"d.m.Y" }}</p>
+                    <h4>{{ related.title }}</h4>
+                    <span>#{{ related.category.name }}</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
